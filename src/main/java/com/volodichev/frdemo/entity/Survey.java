@@ -3,6 +3,7 @@ package com.volodichev.frdemo.entity;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,13 +19,22 @@ public class Survey {
     private Date end;
     @Column
     private String description;
-    @OneToMany
-    private List<Question> questions;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "survey")
+    private List<Question> questions = new ArrayList<>();
 
-    public Survey(){}
+    public Survey(){
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public void addQuestions(Question question){
-        questions.add(question);
+        this.questions.add(question);
     }
 
     public String getName() {
@@ -61,5 +71,9 @@ public class Survey {
 
     public List<Question> getQuestions() {
         return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 }
