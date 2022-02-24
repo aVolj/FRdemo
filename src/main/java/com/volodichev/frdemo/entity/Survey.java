@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 public class Survey {
@@ -76,18 +75,5 @@ public class Survey {
 
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Survey survey = (Survey) o;
-        return id == survey.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

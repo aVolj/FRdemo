@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 public class Question {
@@ -21,6 +20,7 @@ public class Question {
     @Column
     @Enumerated(EnumType.STRING)
     private TypeQuestions type;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
     private List<Answer> answers = new ArrayList<>();
 
@@ -69,18 +69,5 @@ public class Question {
 
     public void addAnswer(Answer answer) {
         answers.add(answer);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Question question = (Question) o;
-        return id == question.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

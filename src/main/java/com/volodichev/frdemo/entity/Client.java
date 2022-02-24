@@ -3,7 +3,6 @@ package com.volodichev.frdemo.entity;
 import jakarta.persistence.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 public class Client {
@@ -34,18 +33,5 @@ public class Client {
 
     public void addAnswer(Answer answer){
         answers.add(answer);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Client client = (Client) o;
-        return id == client.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }
