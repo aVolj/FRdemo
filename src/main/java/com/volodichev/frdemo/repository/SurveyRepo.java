@@ -1,4 +1,4 @@
-package com.volodichev.frdemo.repo;
+package com.volodichev.frdemo.repository;
 
 import com.volodichev.frdemo.entity.Survey;
 import org.springframework.data.jpa.repository.JpaRepository;

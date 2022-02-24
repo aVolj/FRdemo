@@ -1,16 +1,15 @@
-package com.volodichev.frdemo.service;
+package com.volodichev.frdemo.service.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.volodichev.frdemo.entity.Question;
 import com.volodichev.frdemo.entity.Survey;
-import com.volodichev.frdemo.repo.SurveyRepo;
+import com.volodichev.frdemo.repository.SurveyRepo;
+import com.volodichev.frdemo.service.SurveyService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class SurveyServiceImpl implements SurveyService {
@@ -44,6 +43,13 @@ public class SurveyServiceImpl implements SurveyService {
         if (oldSurvey.isPresent()) {
             newSurvey.setStart(oldSurvey.get().getStart());
             return surveyRepo.save(newSurvey);
-        } else throw new EntityNotFoundException();
+        } else throw new EntityNotFoundException("Не найдена запись с id = " + newSurvey.getId());
     }
+
+    @Override
+    public List<Survey> getAllById(Set<Long> ids) {
+        return surveyRepo.findAllById(ids);
+    }
+
+
 }
