@@ -3,19 +3,19 @@ package com.volodichev.frdemo.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 public class Answer {
     @EmbeddedId
     private AnswerKey id;
     @JsonIgnore
     @ManyToOne
-    @MapsId("clientId")
-    @JoinColumn(name = "client_id")
-    private Client client;
+    @JoinColumn(insertable = false, updatable = false, name = "client_id")
+    private User user;
     @JsonIgnore
     @ManyToOne
-    @MapsId("questionId")
-    @JoinColumn(name = "question_id")
+    @JoinColumn(insertable = false, updatable = false, name = "question_id")
     private Question question;
     @Column
     private String answer;
@@ -31,12 +31,12 @@ public class Answer {
         return id;
     }
 
-    public Client getClient() {
-        return client;
+    public User getUser() {
+        return user;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClient(User user) {
+        this.user = user;
     }
 
     public Question getQuestion() {
@@ -53,5 +53,18 @@ public class Answer {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Answer answer = (Answer) o;
+        return id.equals(answer.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
